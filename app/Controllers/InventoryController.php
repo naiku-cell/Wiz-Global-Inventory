@@ -47,19 +47,25 @@ class InventoryController
             echo "{$p->sku} | {$p->name} | {$p->price} | {$p->quantity}\n";
         }
     }
+    //search for the branch
+        public function handleSearchProduct(): void {
+        echo "\n--- Search Product by SKU ---\n";
+        $sku = trim(readline("Enter SKU to search: "));
 
-    /* ---------------- SEARCH ---------------- */
-    public function search(): void
-    {
-        $sku = readline("Enter SKU: ");
+        // Call the search logic we just added to the service
+        $product = $this->inventoryService->findProductBySku($sku);
 
-        $p = $this->service->find($sku);
+        if ($product === null) {
+            echo "❌ Product with SKU '{$sku}' not found.\n";
+            return;
+        }
 
-        echo $p
-            ? "{$p->sku} | {$p->name} | {$p->price} | {$p->quantity}\n"
-            : "SKU not found\n";
+        echo "🔍 Found: {$product->name} | Price: Ksh {$product->price} | Qty: {$product->stock}\n";
     }
 
+
+    
+    
     /* ---------------- UPDATE ---------------- */
     public function update(): void
     {

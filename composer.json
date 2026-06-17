@@ -1,0 +1,20 @@
+{
+    "name": "hp/wiz-globalinventory-system",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hp\\WizGlobalinventorySystem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "naiku-cell",
+            "email": "opiyonivah@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/console": "^7.4"
+    }
+}

@@ -1,0 +1,50 @@
+[
+    {
+        "sku": "SKU-0002",
+        "name": "Laptop",
+        "price": 100000,
+        "quantity": 20
+    },
+    {
+        "sku": "SKU-0003",
+        "name": "Test phones",
+        "price": 50000,
+        "quantity": 12
+    },
+    {
+        "sku": "SKU-0004",
+        "name": "monitors",
+        "price": 2000,
+        "quantity": 18
+    },
+    {
+        "sku": "SKU-0005",
+        "name": "Wifi Router",
+        "price": 3000,
+        "quantity": 2
+    },
+    {
+        "sku": "SKU-0006",
+        "name": "Backup power",
+        "price": 20000,
+        "quantity": 1
+    },
+    {
+        "sku": "SKU-0007",
+        "name": "Fingerprint Scanner",
+        "price": 15000,
+        "quantity": 1
+    },
+    {
+        "sku": "SKU-0008",
+        "name": "Work Apps",
+        "price": 300000,
+        "quantity": 30
+    },
+    {
+        "sku": "SKU-0010",
+        "name": "screws",
+        "price": 90,
+        "quantity": 90
+    }
+]

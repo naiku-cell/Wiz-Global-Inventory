@@ -36,7 +36,8 @@ while (true) {
     echo "3. Search Product (SKU)\n";
     echo "4. Update Quantity (SKU)\n";
     echo "5. Delete Product (SKU)\n";
-    echo "6. Exit\n";
+    echo "6. Low Stock Alerts\n";
+    echo "7. Exit\n";
 
     $choice = readline("\nEnter choice: ");
 
@@ -74,7 +75,13 @@ while (true) {
             pause();
             break;
 
-        case "6":
+             case "6":
+            echo "=== Low Stock Alert ===\n";
+            $controller->handleLowStockAlerts();
+            pause();
+            break;
+
+        case "7":
             echo "Goodbye!\n";
             exit;
 

@@ -90,11 +90,11 @@ class InventoryService
        /* ---------------- UPDATE BY SKU ---------------- */
     public function updateQuantity(string $sku, int $qty): bool
     {
-        // Use our clean search method to find the active Product instance
+        // clean search method to find the active Product instance
         $product = $this->findProductBySku($sku);
 
         if ($product === null) {
-            echo "❌ Error: Product with SKU '{$sku}' not found.\n";
+            echo " Error: Product with SKU '{$sku}' not found.\n";
             return false;
         }
 
@@ -134,13 +134,15 @@ class InventoryService
 
         // Find a single product inside our array using an arrow function filter
     public function findProductBySku(string $sku): ?Product {
-        // array_filter walks through our internal products array list
-        // The arrow function automatically captures the $sku search variable by value
         $matches = array_filter($this->products, fn(Product $p) => $p->sku === $sku);
-        
-        // Return the first matching product found, or null if nothing matched
         return !empty($matches) ? array_values($matches)[0] : null;
     }
+    // low stock filter
     
+    public function getlowStockProducts (int $threshold = 1): array {
+        $matches = array_filter($this->products, fn(product $p) => $p->quantity <$threshold);
+        return array_values($matches);
+
+    }
 
 }

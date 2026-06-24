@@ -12,7 +12,7 @@ class InventoryController
         private InventoryService $service
     ) {}
 
-    /* ---------------- ADD ---------------- */
+    /* ---------------- ADD ----]------------ */
     public function add(): void
     {
         $sku = $this->service->generateSku();
@@ -56,15 +56,12 @@ class InventoryController
         $product = $this->inventoryService->findProductBySku($sku);
 
         if ($product === null) {
-            echo "❌ Product with SKU '{$sku}' not found.\n";
+            echo " Product with SKU '{$sku}' not found.\n";
             return;
         }
 
-        echo "🔍 Found: {$product->name} | Price: Ksh {$product->price} | Qty: {$product->stock}\n";
+        echo " Found: {$product->name} | Price: Ksh {$product->price} | Qty: {$product->stock}\n";
     }
-
-
-    
     
    // update for the branch
          public function handleAdjustStock(): void {
@@ -77,12 +74,12 @@ class InventoryController
             $success = $this->service->updateQuantity($sku, $amount);
 
             if ($success) {
-                echo "✅ Success: Stock quantity updated and database saved successfully!\n";
+                echo " Success: Stock quantity updated and database saved successfully!\n";
             } else {
-                echo "❌ Error: Product with SKU '{$sku}' not found in the database.\n";
+                echo " Error: Product with SKU '{$sku}' not found in the database.\n";
             }
         } catch (\Exception $e) {
-            echo "❌ " . $e->getMessage() . "\n";
+            echo " " . $e->getMessage() . "\n";
         }
     }
 
@@ -97,7 +94,7 @@ class InventoryController
         $confirm = strtolower(trim(readline("Are you absolutely sure? (yes/no): ")));
         
         if ($confirm !== 'yes' && $confirm !== 'y') {
-            echo "❌ Operation cancelled. Product safe.\n";
+            echo " Operation cancelled. Product safe.\n";
             return;
         }
 
@@ -105,10 +102,25 @@ class InventoryController
         $success = $this->service->deleteProductBySku($sku);
 
         if ($success) {
-            echo "🗑️ Success: Product with SKU '{$sku}' deleted and database updated!\n";
+            echo " Success: Product with SKU '{$sku}' deleted and database updated!\n";
         } else {
-            echo "❌ Error: Product with SKU '{$sku}' not found in the database.\n";
+            echo " Error: Product with SKU '{$sku}' not found in the database.\n";
         }
     }
+    //Low Stock Alerts
 
+     public function handleLowStockAlerts(): void {
+        echo "\n --- Low Stock Alerts (Less than 1 unit) --- \n";
+        $lowStockItems = $this->service->getLowStockProducts();
+
+        if (empty($lowStockItems)) {
+            echo "All warehouse stock levels are healthy! No alerts.\n";
+            return;
+        }
+
+        foreach ($lowStockItems as $item) {
+            // Adjust the property name here ($item->quantity) to match your real Product model property
+            echo " ALERT | SKU: {$item->sku} | Name: {$item->name} | Only {$item->quantity} left! (Price: Ksh {$item->price})\n";
+        }
+    }
 }

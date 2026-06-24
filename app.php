@@ -70,7 +70,7 @@ while (true) {
 
         case "5":
             echo "=== DELETE PRODUCT ===\n";
-            $controller->delete();
+            $controller->handleDeleteProduct();
             pause();
             break;
 

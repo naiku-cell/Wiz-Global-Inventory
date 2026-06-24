@@ -111,19 +111,27 @@ class InventoryService
         return true;
     }
 
-
-    /* ---------------- DELETE BY SKU ---------------- */
-    public function delete(string $sku): void
+        /* ---------------- DELETE BY SKU ---------------- */
+    public function deleteProductBySku(string $sku): bool
     {
-        foreach ($this->products as $key => $p) {
-            if ($p->sku === $sku) {
+        // Walk through the array to find the item's key position
+        foreach ($this->products as $key => $product) {
+            if ($product->sku === $sku) {
+                // Remove the product object from the array sequence completely
                 unset($this->products[$key]);
+                
+                // Re-index the array keys so there are no empty gaps (0, 1, 2...)
                 $this->products = array_values($this->products);
+                
+                // Save the newly modified array back to the JSON file
                 $this->save();
-                return;
+                return true; // Deletion was successful
             }
         }
+
+        return false; // SKU was not found
     }
+
         // Find a single product inside our array using an arrow function filter
     public function findProductBySku(string $sku): ?Product {
         // array_filter walks through our internal products array list

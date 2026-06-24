@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class InventoryService
 {
-    private array $products = [];
+   private array $products = [];
     private string $file;
     private string $counterFile;
 
@@ -87,17 +87,30 @@ class InventoryService
         return null;
     }
 
-    /* ---------------- UPDATE BY SKU ---------------- */
-    public function updateQuantity(string $sku, int $qty): void
+       /* ---------------- UPDATE BY SKU ---------------- */
+    public function updateQuantity(string $sku, int $qty): bool
     {
-        foreach ($this->products as $p) {
-            if ($p->sku === $sku) {
-                $p->quantity = $qty;
-                $this->save();
-                return;
-            }
+        // Use our clean search method to find the active Product instance
+        $product = $this->findProductBySku($sku);
+
+        if ($product === null) {
+            echo "❌ Error: Product with SKU '{$sku}' not found.\n";
+            return false;
         }
+
+        // Safety verification rule protecting business bounds
+        if ($qty < 0) {
+            throw new \Exception("Operation rejected: Quantity value cannot be negative.");
+        }
+
+        // Reassign the public property using your exact naming configuration
+        $product->quantity = $qty;
+
+        // Persist the modifications to your JSON hard drive file instantly
+        $this->save();
+        return true;
     }
+
 
     /* ---------------- DELETE BY SKU ---------------- */
     public function delete(string $sku): void
@@ -120,5 +133,6 @@ class InventoryService
         // Return the first matching product found, or null if nothing matched
         return !empty($matches) ? array_values($matches)[0] : null;
     }
+    
 
 }

@@ -9,13 +9,13 @@
         "sku": "SKU-0003",
         "name": "Test phones",
         "price": 50000,
-        "quantity": 12
+        "quantity": 14
     },
     {
         "sku": "SKU-0004",
         "name": "monitors",
         "price": 2000,
-        "quantity": 18
+        "quantity": 10
     },
     {
         "sku": "SKU-0005",

@@ -86,13 +86,29 @@ class InventoryController
         }
     }
 
-    /* ---------------- DELETE ---------------- */
-    public function delete(): void
-    {
-        $sku = readline("Enter SKU: ");
+    //delete for branch
+       public function handleDeleteProduct(): void {
+        echo "\n--- Delete Product From Inventory ---\n";
+        
+        // Trim and remove any accidental spaces in the entered SKU
+        $sku = str_replace(' ', '', trim(readline("Enter SKU of product to DELETE: ")));
+        
+        // Double check with the user before performing a permanent deletion
+        $confirm = strtolower(trim(readline("Are you absolutely sure? (yes/no): ")));
+        
+        if ($confirm !== 'yes' && $confirm !== 'y') {
+            echo "❌ Operation cancelled. Product safe.\n";
+            return;
+        }
 
-        $this->service->delete($sku);
+        // Trigger the deletion logic inside the service layer
+        $success = $this->service->deleteProductBySku($sku);
 
-        echo "Product deleted\n";
+        if ($success) {
+            echo "🗑️ Success: Product with SKU '{$sku}' deleted and database updated!\n";
+        } else {
+            echo "❌ Error: Product with SKU '{$sku}' not found in the database.\n";
+        }
     }
+
 }

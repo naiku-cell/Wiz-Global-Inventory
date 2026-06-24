@@ -18,12 +18,6 @@
         "quantity": 10
     },
     {
-        "sku": "SKU-0005",
-        "name": "Wifi Router",
-        "price": 3000,
-        "quantity": 2
-    },
-    {
         "sku": "SKU-0006",
         "name": "Backup power",
         "price": 20000,

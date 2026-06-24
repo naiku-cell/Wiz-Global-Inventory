@@ -58,13 +58,13 @@ while (true) {
 
         case "3":
             echo "=== SEARCH PRODUCT ===\n";
-            $controller->search();
+            $controller->handleSearchProduct();
             pause();
             break;
 
         case "4":
             echo "=== UPDATE PRODUCT ===\n";
-            $controller->update();
+            $controller->handleAdjustStock();
             pause();
             break;
 

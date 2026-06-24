@@ -66,15 +66,24 @@ class InventoryController
 
     
     
-    /* ---------------- UPDATE ---------------- */
-    public function update(): void
-    {
-        $sku = readline("Enter SKU: ");
-        $qty = (int) readline("New Quantity: ");
+   // update for the branch
+         public function handleAdjustStock(): void {
+        echo "\n--- Update Product Stock Quantity ---\n";
+        $sku = trim(readline("Enter Product SKU: "));
+        $amount = (int) trim(readline("Enter the NEW total quantity amount: "));
 
-        $this->service->updateQuantity($sku, $qty);
+        try {
+            // Capture the true/false result from the service layer
+            $success = $this->service->updateQuantity($sku, $amount);
 
-        echo "Stock updated\n";
+            if ($success) {
+                echo "✅ Success: Stock quantity updated and database saved successfully!\n";
+            } else {
+                echo "❌ Error: Product with SKU '{$sku}' not found in the database.\n";
+            }
+        } catch (\Exception $e) {
+            echo "❌ " . $e->getMessage() . "\n";
+        }
     }
 
     /* ---------------- DELETE ---------------- */
